@@ -12,7 +12,6 @@ namespace GidionGameStore.Controllers
             GameInformationTableAdapter gameInformationTableAdapter = new GameInformationTableAdapter();
             gameInformationTableAdapter.Fill(gameStoreDS.GameInformation);
             ViewBag.GameInformation = gameStoreDS.GameInformation;
-            ViewBag.GamesCount = gameStoreDS.GameInformation.Count;
             ViewBag.ErrorMessage = gameInformationTableAdapter.Connection.State == System.Data.ConnectionState.Open ? null : "Database connection is not open.";
             return View();
         }
