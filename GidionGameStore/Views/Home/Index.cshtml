@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    .icon-game {
+        max-width: 200px;
+        max-height: 200px;
+        min-block-size: 50px;
+        object-fit: cover;
+    }
+</style>
+
+<main>
+    <h1>New game</h1>
+    <hr />
+    <div class="row">
+        @{
+            var games = ViewBag.GameInformation as System.Data.DataTable;
+            if (games != null)
+            {
+                var startIndex = Math.Max(0, games.Rows.Count - 3);
+                for (int i = startIndex; i < games.Rows.Count; i++)
+                {
+                    var gamename = games.Rows[i][1].ToString().Replace(" ","");
+                    <div class="col-md-3">
+                        <button class="card mb-3 shadow-sm" onclick="window.location.replace('/playgame/@gamename')">
+                            <img src="~/Images/guesssong.png" class="card-img-top icon-game align-self-center" alt="Game 1">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Game Title 1</h5>
+                                <p class="card-text">Version A0.00.01 (alpha test 0.0.1)</p>
+                            </div>
+                        </button>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No games available or Database is error</p>
+                <p>Detail: @ViewBag.ErrorMessage</p>
+            }
+        }
+    </div>
+</main>
