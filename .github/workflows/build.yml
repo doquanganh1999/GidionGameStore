@@ -1,0 +1,24 @@
+name: Build ASP.NET WebApp
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Visual Studio Build Tools
+      run: choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.WebBuildTools --includeRecommended --includeOptional --passive --locale en-US"
+
+    - name: Setup MSBuild path
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Build solution with MSBuild
+      run: msbuild GidionGameStore.sln /p:Configuration=Release
